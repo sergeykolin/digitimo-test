@@ -1,0 +1,61 @@
+<app-header></app-header>
+<h3 style="text-align: center">Leave your review!</h3>
+<div class="row">
+    <form class="col s12" [formGroup]="reviewForm">
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="name" type="text" formControlName="name">
+                <label for="name">Name</label>
+                <small *ngIf="(reviewForm.controls.name.errors?.required && reviewForm.controls.name.touched) || formError" style="color: red">
+                Field is required
+              </small>
+            </div>
+            <div class="input-field col s6">
+                <input id="email" type="email" formControlName="email">
+                <label for="email">Email</label>
+                <small *ngIf="(reviewForm.controls.email.errors && reviewForm.controls.email.touched) || formError" style="color: red">
+                    Not valid
+                </small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="age" type="number" formControlName="age">
+                <label for="age">Age</label>
+            </div>
+            <div class="col s6">
+                <label>Gender</label>
+                <select class="browser-default" formControlName="gender" material-select>
+                <option [ngValue]="" disabled selected>Not chosen</option>
+                    <option *ngFor="let item of genders" [ngValue]="item.type">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="country" type="text" formControlName="country">
+                <label for="country">Country</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="rating" type="number" min="1" max="5" formControlName="rating">
+                <label for="rating">Rating (Five-point scale)</label>
+                <small *ngIf="reviewForm.controls.rating.errors?.required && reviewForm.controls.rating.touched && !formError" style="color: red">
+                    Field is required
+                </small>
+                <small *ngIf="((reviewForm.controls.rating.errors?.min || reviewForm.controls.rating.errors?.max) && reviewForm.controls.rating.touched) || formError " style="color: red">
+                    Not valid
+                </small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="note">Note</label>
+                <textarea id="note" type="text" formControlName="note" class="materialize-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <button class="btn waves-effect waves-teal" style="margin-left: 0.5rem" (click)="onSubmit()">Add</button>
+        </div>
+    </form>
+</div>
