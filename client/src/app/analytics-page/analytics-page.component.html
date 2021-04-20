@@ -1,10 +1,11 @@
+<app-header></app-header>
 <h3 style="text-align: center">Analytics</h3>
 
 <ng-container *ngIf="analytics">
     <h5 style="text-align: center; margin-top: 0.5rem">General info:</h5>
     <div class="row">
         <div class="col s4 text-info">
-            <span> Total number of reviews: {{analytics.total}}</span>
+            <span> Total number of Feadback: {{analytics.total}}</span>
         </div>
         <div class="col s4 text-info">
             <span> Average rating: {{analytics.average_rating}}</span>
@@ -13,21 +14,21 @@
             <span> Average age (indicated age = {{analytics.indicated_age}}): {{analytics.average_age}}</span>
         </div>
         <div class="col s4 text-info">
-            <span> Male reviews: {{analytics.male}}</span>
+            <span> Male Feadback: {{analytics.male}}</span>
         </div>
         <div class="col s4 text-info">
-            <span> Female reviews: {{analytics.female}}</span>
+            <span> Female Feadback: {{analytics.female}}</span>
         </div>
         <div class="col s4 text-info">
-            <span> Reviews without gender specified: {{analytics.without_gender}}</span>
+            <span> Feadback without gender specified: {{analytics.without_gender}}</span>
         </div>
     </div>
 
     <h5 style="text-align: center">Countries:</h5>
     <div class="row">
         <div class="col s4 text-info" *ngFor="let item of analytics.countries">
-            <span *ngIf="!item.name"> Total number of reviews in other countries: {{item.count}}</span>
-            <span *ngIf="item.name"> Total number of reviews in {{item.name}}: {{item.count}}</span>
+            <span *ngIf="!item.name"> Total number of Feadback in other countries: {{item.count}}</span>
+            <span *ngIf="item.name"> Total number of Feadback in {{item.name}}: {{item.count}}</span>
         </div>
     </div>
 </ng-container>

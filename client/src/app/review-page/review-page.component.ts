@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, RoutesRecognized } from '@angular/router';
-import { iGender } from '../interfaces';
+import { iGender, iCountry } from '../interfaces';
 import { GeneralService } from '../services/general.service';
 import { ErrorService } from '../classes/error.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-review-page',
@@ -16,10 +17,11 @@ export class ReviewPageComponent implements OnInit {
   formError: boolean = false;
   genders: iGender[];
   previewPage: string;
+  countries: iCountry[];
 
   constructor(private _router: Router, private generalService: GeneralService) {
     this.previewPage = document.referrer;
-    this.getGenders();
+    this.getData();
   }
 
   ngOnInit(): void {
@@ -35,10 +37,14 @@ export class ReviewPageComponent implements OnInit {
     })
   }
 
-  getGenders(): void {
-    this.generalService.getGenders().subscribe(
-      result => this.genders = result,
-      error => console.error(error)
+  getData(): void {
+    const joinedRequest = forkJoin([this.generalService.getGenders(), this.generalService.getCountries()])
+    joinedRequest.subscribe(
+      ([gendersList, countriesList]) => {
+        this.genders = gendersList;
+        this.countries = countriesList.map(item => { return {id: item.name, code: item.name} });
+      },
+      error => ErrorService.show(error.message)
     )
   }
 
@@ -47,6 +53,7 @@ export class ReviewPageComponent implements OnInit {
       this.formError = true;
       return;
     }
+    this.reviewForm.value.country = this.reviewForm.value.country ? this.reviewForm.value.country[0].code : null;
     this.generalService.addReview(this.reviewForm.value).subscribe(
       result => {
         this._router.navigate(['/thank-you'], { queryParams: {previewPage: this.previewPage} } );

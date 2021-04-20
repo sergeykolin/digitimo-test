@@ -7,6 +7,10 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client-install": "npm install --prefix client",
+    "containers:start": "docker-compose -f ./docker/docker-compose.yml up -d",
+    "containers:stop": "docker-compose -f ./docker/docker-compose.yml stop",
+    "containers:restart": "docker-compose -f ./docker/docker-compose.yml restart",
+    "migrate-db": "node scripts/migrate-db.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

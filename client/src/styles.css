@@ -1,1 +1,2 @@
-@import "~materialize-css/dist/css/materialize.min.css"
+@import "~materialize-css/dist/css/materialize.min.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";

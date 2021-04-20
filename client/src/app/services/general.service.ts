@@ -18,4 +18,8 @@ export class GeneralService {
     getAnalitycs(): Observable<any> {
         return this.http.get(`${environment.backEndApi}/analytics`);
     }
+
+    getCountries(): Observable<any> {
+        return this.http.get(`${environment.backEndApi}/countries`);
+    }
 }

@@ -1,5 +1,5 @@
 <app-header></app-header>
-<h3 style="text-align: center">Leave your review!</h3>
+<h3 style="text-align: center">Leave your feadback!</h3>
 <div class="row">
     <form class="col s12" [formGroup]="reviewForm">
         <div class="row">
@@ -32,10 +32,19 @@
             </div>
         </div>
         <div class="row">
+        <ng-container *ngIf="countries">
             <div class="input-field col s6">
-                <input id="country" type="text" formControlName="country">
-                <label for="country">Country</label>
+                <ng-select [items]="countries"
+                    bindLabel="code"
+                    appendTo="body"
+                    multiple="false"
+                    searchable="true"
+                    placeholder="Country"
+                    formControlName="country"
+                    style="margin-top: -32px">
+                  </ng-select>
             </div>
+            </ng-container>
             <div class="input-field col s6">
                 <input id="rating" type="number" min="1" max="5" formControlName="rating">
                 <label for="rating">Rating (Five-point scale)</label>

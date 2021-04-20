@@ -10,6 +10,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { GeneralService } from "./services/general.service";
 import { ThankYouPageComponent } from './thank-you-page/thank-you-page.component';
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -18,14 +20,16 @@ import { AnalyticsPageComponent } from './analytics-page/analytics-page.componen
     NotfoundPageComponent,
     HeaderComponent,
     ThankYouPageComponent,
-    AnalyticsPageComponent
+    AnalyticsPageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule
   ],
   providers: [GeneralService],
   bootstrap: [AppComponent]

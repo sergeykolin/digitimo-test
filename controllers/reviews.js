@@ -7,6 +7,7 @@ module.exports.addReview = async function (req, res) {
        errorHandler(res, 'Bad Request', 400);
        return;
    }
+   console.log('1111',req.body)
    try {
        await review.save();
        res.status(200).json({

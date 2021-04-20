@@ -29,3 +29,8 @@ export interface iAnalytics {
     without_gender?: number,
     indicated_age: number,
 }
+
+export interface iCountry {
+    code: string;
+    id: string;
+}
