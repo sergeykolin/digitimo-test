@@ -1,7 +1,6 @@
-const errorHandler = require('../utils/errorHandler');
 const Review = require('../models/Review');
 
-module.exports.analytics = async function (req, res) {
+module.exports.analytics = async function (req, res, next) {
     const aggregate = [
         {$match: {}},
         {
@@ -65,7 +64,7 @@ module.exports.analytics = async function (req, res) {
             result: result[0]
         })
     } catch (error) {
-        errorHandler(res, error);
+        next(error);
     }
 
 }

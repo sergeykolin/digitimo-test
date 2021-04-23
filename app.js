@@ -4,12 +4,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
-const reviewsRouter = require('./routers/reviews');
-const analyticsRouter = require('./routers/analytics');
-const gendersRouter = require('./routers/genders');
-const countriesRouter = require('./routers/countries');
+const router = require('./routers/index');
 const Log = require('./libs/log');
 const keys = require('./config/keys');
+const errorHandler = require('./utils/errorHandler');
 
 mongoose.connect(keys.mongodbURL)
     .then(() => Log('MongoDB connected.'))
@@ -19,9 +17,9 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/', reviewsRouter);
-app.use('/analytics', analyticsRouter);
-app.use('/genders', gendersRouter);
-app.use('/countries', countriesRouter);
+app.use(router);
+app.use( (err, req, res, next) => {
+    next(errorHandler(res, err, err.status));
+});
 
 module.exports = app;

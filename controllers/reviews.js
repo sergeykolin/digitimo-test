@@ -1,19 +1,16 @@
 const Review = require('../models/Review');
-const errorHandler = require('../utils/errorHandler');
 
-module.exports.addReview = async function (req, res) {
-   const review = new Review(req.body);
-   if (!review.name || !review.email || !review.rating) {
-       errorHandler(res, 'Bad Request', 400);
-       return;
-   }
-   console.log('1111',req.body)
-   try {
-       await review.save();
-       res.status(200).json({
-           success: true
-       })
-   } catch (error) {
-        errorHandler(res, error);
-   }
+module.exports.addReview = async function (req, res, next) {
+    const review = new Review(req.body);
+    if (!review.name || !review.email || !review.rating) {
+        next(new Error('Bad Request'))
+    }
+    try {
+        await review.save();
+        res.status(200).json({
+            success: true
+        });
+    } catch (error) {
+        next(error)
+    }
 }
